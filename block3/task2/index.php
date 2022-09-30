@@ -1,26 +1,23 @@
-
 <?php
 
-function check_data(int $day, int $month) {
+function checkData(int $day, int $month)
+{
 	if (!(1 <= $day and $day <= 31 and
-		  1 <= $month and $month <= 12)) {
-		echo "Вы ввели не корректную дату";
-		return 'nan';
-	}
+		  1 <= $month and $month <= 12))
+		return "Вы ввели не корректную дату<br>";
 	
-	$month_30_days = array(4, 6, 9, 11);
-	if(in_array($month, $month_30_days) and $day > 30) { // 30 days in month
-		echo "Вы в этом месяце не может быть 31 день<br>";
-		return 'nan';
-	}	
-	else if($month == 2 and $day > 29) { // 29 days in month
-		echo "Вы в этом месяце не может быть больше 29 деней<br>";
-		return 'nan';
-	}
+	
+	$month30Days = array(4, 6, 9, 11);
+	if (in_array($month, $month30Days) and $day > 30) // 30 days in month
+		return "Вы в этом месяце не может быть 31 день<br>";
+	elseif ($month == 2 and $day > 29)  // 29 days in month
+		return  "Вы в этом месяце не может быть больше 29 деней<br>";
+
 	return '0';
 }
 
-function show_data($day, $month){
+function showData($day, $month)
+{
 	$arr = [
 	  'января',
 	  'февраля',
@@ -36,22 +33,27 @@ function show_data($day, $month){
 	  'декабря'
 	];
 	
-	echo "$day ";
-	echo $arr[$month-1];
-	echo "<br>";
+	echo $day . ' ' . $arr[$month-1] . "<br>";
 }
 
-function get_data(int $day, int $month) {
-	if(check_data($day, $month) != 'nan')
-		show_data($day, $month);
+function getData(int $day, int $month)
+{
+	$result = checkData($day, $month);
+	if ($result == '0')
+		showData($day, $month);
+	else
+		echo $result;
 }
 
-try {
-	$day = 24;
+try 
+{
+	$day   = 24;
 	$month = 7;
-	echo get_data($day, $month);	
-}catch(TypeError $e){
-    echo "День и месяц должны быть целым числом";
+	echo getData($day, $month);	
+}
+catch(TypeError $e)
+{
+    echo 'День и месяц должны быть целым числом';
 }
 
 ?>
