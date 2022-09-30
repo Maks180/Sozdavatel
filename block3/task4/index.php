@@ -29,10 +29,8 @@
     <form action="/addFile.php" method="POST", enctype="multipart/form-data">
         <input type="file" name="file">
         <input type="submit" value="Загрузить">
-
     </form>
-
 </body>
 </html>
 
-<? include ("main.php"); ?>
+<? include 'main.php'; ?>
