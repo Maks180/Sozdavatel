@@ -1,12 +1,11 @@
 <?php
-function in_segment($a, $b, $c) {
-	return $a <= $c and $c <= $b;
-}
+function inSegment($a, $b, $c) { return $a <= $c and $c <= $b; }
 
-function check_data(int $hour, int $minute) {
-	if (!in_segment(0, 12, $hour))
+function checkData(int $hour, int $minute) 
+{
+	if (!inSegment(0, 12, $hour))
 		echo "Введите значение часовой стрелки от 0 до 12";
-	elseif(!in_segment(0, 59, $minute))
+	elseif(!inSegment(0, 59, $minute))
 		echo "Введите значение минутной стрелки от 0 до 59";
 	else
 		return '0';
@@ -14,7 +13,8 @@ function check_data(int $hour, int $minute) {
 	return 'nan';	
 }
 
-function calc_angle_between($a, $b) {
+function calcAngleBetween($a, $b) 
+{
 	if ($a >= $b)
 		$angle = $a - $b;
 	else
@@ -26,33 +26,37 @@ function calc_angle_between($a, $b) {
 	return $angle;
 }
 
-function get_angle(int $hour, int $minute) {
-	if (check_data($hour, $minute) != '0')
+function getAngle(int $hour, int $minute) 
+{
+	if (checkData($hour, $minute) != '0')
 		return 'Не удалось посчитать угол';
 
 	if ($hour == 12 or $hour == 0)
-		$position_h = 0.5 * $minute;
+		$positionH = 0.5 * $minute;
 	else
-		$position_h = 30 * $hour + 0.5 * $minute;
+		$positionH = 30 * $hour + 0.5 * $minute;
 
-	$position_m = 6 * $minute;
+	$positionM = 6 * $minute;
 
-	return calc_angle_between($position_h, $position_m);
+	return calcAngleBetween($positionH, $positionM);
 }
 
-try {
-	$hour = 7;
+try
+{
+	$hour   = 7;
 	$minute = 59;
 
-	$angle = get_angle($hour, $minute);
+	$angle = getAngle($hour, $minute);
 
 	if (is_numeric($angle))
-		echo "Угол для $hour:$minute = $angle  °";
+		echo 'Угол для ' . $hour . ':'
+		 	. $minute . ' = ' . $angle . ' °';
 	else
 		echo $angle;
-
-}catch(TypeError $e){
-    echo "Часы и минуты должны быть целыми числами.";
+}
+catch(TypeError $e)
+{
+    echo 'Часы и минуты должны быть целыми числами.';
 }
 
 ?>
